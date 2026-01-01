@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+*.html
+*.csv
+*.png
+.env
+.venv
+Kronos/
