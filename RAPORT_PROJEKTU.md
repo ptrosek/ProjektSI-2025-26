@@ -47,15 +47,15 @@ Poniższy diagram obrazuje przepływ informacji w systemie:
 
 ```mermaid
 graph TD
-    A[Dane Rynkowe (Yahoo Finance)] -->|Historyczne ceny OHLCV| B(Przygotowanie Danych)
-    B -->|Kontekst (np. ostatnie 50 dni)| C{Model AI: Kronos}
-    C -->|Analiza Wzorców| D[Prognoza Ceny (np. +21 dni)]
-    D -->|Czy wzrost > 0%?| E{Generator Sygnałów}
-    E -- Tak --> F[Sygnał: KUP (1)]
-    E -- Nie --> G[Sygnał: CZEKAJ (0)]
-    F --> H[Strategia Inwestycyjna]
+    A["Dane Rynkowe (Yahoo Finance)"] -->|Historyczne ceny OHLCV| B("Przygotowanie Danych")
+    B -->|"Kontekst (np. ostatnie 50 dni)"| C{"Model AI: Kronos"}
+    C -->|"Analiza Wzorców"| D["Prognoza Ceny (np. +21 dni)"]
+    D -->|"Czy wzrost > 0%?"| E{"Generator Sygnałów"}
+    E -- Tak --> F["Sygnał: KUP (1)"]
+    E -- Nie --> G["Sygnał: CZEKAJ (0)"]
+    F --> H["Strategia Inwestycyjna"]
     G --> H
-    H -->|Backtesting| I[Wynik Finansowy & Raport]
+    H -->|Backtesting| I["Wynik Finansowy & Raport"]
 ```
 
 ---
