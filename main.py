@@ -7,6 +7,8 @@ from predictor import KronosWrapper
 from strategy import SignalStrategy
 import matplotlib.pyplot as plt
 import numpy as np
+import io
+import base64
 
 @click.command()
 @click.option('--ticker', required=True, help='Ticker symbol (e.g., AAPL, BTC-USD)')
@@ -93,9 +95,29 @@ def run_backtest(ticker, start_date, rebalance, initial_cash, device, pred_len, 
     click.echo("Generating comparison plot...")
     
     # Filter for valid actual returns (drop last pred_len rows which are NaN)
-    valid_comparison = backtest_data.dropna(subset=['Actual_Return'])
+    valid_comparison = backtest_data.dropna(subset=['Actual_Return', 'Pred_Return'])
     
     if not valid_comparison.empty:
+        # Calculate Statistical Metrics
+        if len(valid_comparison) < 2 or valid_comparison['Actual_Return'].std() == 0 or valid_comparison['Pred_Return'].std() == 0:
+            correlation = 0.0
+        else:
+            correlation = valid_comparison['Actual_Return'].corr(valid_comparison['Pred_Return'])
+
+        rmse = np.sqrt(((valid_comparison['Actual_Return'] - valid_comparison['Pred_Return']) ** 2).mean())
+        mae = (valid_comparison['Actual_Return'] - valid_comparison['Pred_Return']).abs().mean()
+        
+        # Directional Accuracy
+        actual_dir = np.sign(valid_comparison['Actual_Return'])
+        pred_dir = np.sign(valid_comparison['Pred_Return'])
+        directional_acc = (actual_dir == pred_dir).mean()
+
+        click.echo("\n--- Model Performance Metrics ---")
+        click.echo(f"Correlation: {correlation:.4f}")
+        click.echo(f"RMSE: {rmse:.4f}")
+        click.echo(f"MAE: {mae:.4f}")
+        click.echo(f"Directional Accuracy: {directional_acc:.2%}")
+
         fig, (ax1, ax2, ax3) = plt.subplots(3, 1, figsize=(12, 18))
         
         # 1. Time Series Plot
@@ -116,7 +138,7 @@ def run_backtest(ticker, start_date, rebalance, initial_cash, device, pred_len, 
         
         ax2.set_xlabel(f'Actual {pred_len}-Day Return')
         ax2.set_ylabel(f'Predicted {pred_len}-Day Return')
-        ax2.set_title('Scatter: Correlation Analysis')
+        ax2.set_title(f'Scatter: Correlation Analysis (Corr: {correlation:.2f}, Dir Acc: {directional_acc:.1%})')
         ax2.axhline(0, color='gray', linestyle='-', alpha=0.3)
         ax2.axvline(0, color='gray', linestyle='-', alpha=0.3)
         ax2.legend()
@@ -134,13 +156,64 @@ def run_backtest(ticker, start_date, rebalance, initial_cash, device, pred_len, 
         
         plt.tight_layout()
         
-        comp_plot_file = f"{ticker}_prediction_comparison.png"
-        plt.savefig(comp_plot_file)
-        click.echo(f"Comparison plot saved to {comp_plot_file}")
+        # Save plot to buffer for HTML embedding
+        img_buf = io.BytesIO()
+        plt.savefig(img_buf, format='png', bbox_inches='tight')
+        img_buf.seek(0)
+        img_data = base64.b64encode(img_buf.read()).decode('utf-8')
+        img_buf.close()
+
+        # Append analysis to Backtest HTML
+        # Generate Investment Suggestion
+        last_row = backtest_data.iloc[-1]
+        cur_pred = last_row['Pred_Return']
+        cur_date = last_row.name.strftime('%Y-%m-%d')
+        rec_color = "green" if cur_pred > 0 else "red"
+        rec_action = "BUY" if cur_pred > 0 else "SELL"
+
+        suggestion_html = f"""
+        <div style="font-family: sans-serif; margin: 20px; padding: 20px; border: 1px solid #ccc; background: #f9f9f9; border-left: 6px solid {rec_color};">
+            <h2>Investment Suggestion ({cur_date})</h2>
+            <p><strong>Recommendation:</strong> <span style="color: {rec_color}; font-weight: bold;">{rec_action}</span> (Predicted Return: {cur_pred:.2%})</p>
+        </div>
+        """
+
+        stats_html = f"""
+        <div style="font-family: sans-serif; margin: 20px; padding: 20px; border: 1px solid #ccc; background: #f9f9f9;">
+            <h2>Backtest Statistics</h2>
+            {stats.to_frame(name='Value').to_html(classes="table", border=0)}
+        </div>
+        """
+
+        metrics_html = f"""
+        <div style="font-family: sans-serif; margin: 20px; padding: 20px; border: 1px solid #ccc; background: #f9f9f9;">
+            <h2>Model Performance Metrics</h2>
+            <p><strong>Correlation:</strong> {correlation:.4f}</p>
+            <p><strong>RMSE(Root Mean Square Error):</strong> {rmse:.4f}</p>
+            <p><strong>MAE(Mean Absolute Error):</strong> {mae:.4f}</p>
+            <p><strong>Directional Accuracy:</strong> {directional_acc:.2%}</p>
+        </div>
+        """
+        plot_html = f'<div style="margin: 20px; text-align: center;"><img src="data:image/png;base64,{img_data}" style="max-width: 100%; border: 1px solid #ddd;"></div>'
+        data_html = f'<div style="margin: 20px; overflow-x: auto;"><h3>Comparison Data</h3>{valid_comparison.to_html(classes="table", border=0)}</div>'
         
-        # Save CSV
-        valid_comparison[['Pred_Return', 'Actual_Return']].to_csv(f"{ticker}_prediction_comparison.csv")
-        click.echo(f"Comparison data saved to {ticker}_prediction_comparison.csv")
+        with open(output_file, 'r', encoding='utf-8') as f:
+            html_content = f.read()
+            
+        # Inject content before closing body tag
+        if '</body>' in html_content:
+            # Inject suggestion at the top (after <body>)
+            if '<body>' in html_content:
+                html_content = html_content.replace('<body>', f'<body>{suggestion_html}')
+            final_html = html_content.replace('</body>', f'{stats_html}{metrics_html}{plot_html}{data_html}</body>')
+            with open(output_file, 'w', encoding='utf-8') as f:
+                f.write(final_html)
+            click.echo(f"Combined analysis and backtest saved to {output_file}")
+        else:
+            # Fallback if </body> not found
+            with open(output_file, 'a', encoding='utf-8') as f:
+                f.write(stats_html + metrics_html + plot_html + data_html)
+            click.echo(f"Appended analysis to {output_file}")
     else:
         click.echo("Not enough data to generate comparison (need at least 21 days past start date).")
 

@@ -1,6 +1,6 @@
 __pycache__/
 *.pyc
-*.html
+*_backtest.html
 *.csv
 *.png
 .env
