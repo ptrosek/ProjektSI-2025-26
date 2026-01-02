@@ -60,6 +60,39 @@ graph TD
 
 ---
 
+## Studium Przypadku: Analiza QQQ (2024-2025)
+
+Aby zweryfikować skuteczność systemu, przeprowadzono test na historycznych danych funduszu **QQQ** (Invesco QQQ Trust), śledzącego indeks NASDAQ-100. Poniżej przedstawiamy wyniki symulacji za okres **Marzec 2024 – Grudzień 2025**.
+
+### 1. Wynik Finansowy vs Strategia Pasywna
+Najważniejszym pytaniem dla inwestora jest: "Czy pobiłem rynek?". Porównajmy naszą aktywną strategię AI ze strategią "Kup i Trzymaj" (Buy & Hold).
+
+| Metryka | Strategia Aktywna (AI) | Strategia Pasywna (Buy & Hold) |
+| :--- | :--- | :--- |
+| **Całkowity Zwrot** | **+21.17%** | **+39.38%** |
+| **Liczba Transakcji** | 114 | 1 |
+| **Ekspozycja na Rynek** | 70.93% | 100% |
+
+**Wniosek:** W analizowanym okresie, charakteryzującym się silnym trendem wzrostowym, strategia pasywna przyniosła wyższy zysk. Model AI, próbując "wyczuć rynek", spędził blisko 30% czasu poza rynkiem (gotówka), co uchroniło kapitał przed zmiennością, ale też ograniczyło udział w silnych wzrostach. Jest to typowe zachowanie strategii aktywnych w okresach silnej hossy.
+
+### 2. Analiza Ryzyka i Stabilności
+Zysk to nie wszystko – liczy się bezpieczeństwo. Spójrzmy na metryki ryzyka:
+
+*   **Maksymalne Obsunięcie Kapitału (Max Drawdown): -10.24%**
+    *   *Co to znaczy?* W najgorszym momencie inwestor straciłby tymczasowo tylko ok. 10% wartości portfela od szczytu. Dla porównania, indeksy technologiczne potrafią spadać znacznie głębiej. Niska wartość Drawdown świadczy o dobrym zarządzaniu ryzykiem przez AI.
+*   **Wskaźnik Sharpe'a (Sharpe Ratio): 0.69**
+    *   *Co to znaczy?* Miarą opłacalności podejmowanego ryzyka. Wartość poniżej 1.0 sugeruje, że w tym konkretnym okresie zysk nie był w pełni proporcjonalny do zmienności, choć wynik pozostaje dodatni.
+*   **Skuteczność (Win Rate): 56.14%**
+    *   *Co to znaczy?* Ponad połowa (56 na 100) transakcji zakończyła się zyskiem. To solidny wynik dla strategii trendowej – kluczem jest to, aby zyski z udanych transakcji przewyższały straty z nieudanych.
+
+### 3. Podsumowanie Case Study
+Ten przykład pokazuje ważną lekcję: **Sztuczna Inteligencja nie jest magiczną kulą, która zawsze wygrywa.**
+*   W silnym trendzie wzrostowym (jak QQQ w 2024-25), trudno pobić proste trzymanie akcji.
+*   Wartość AI ujawnia się w zarządzaniu ekspozycją (nie byciu na rynku "za wszelką cenę").
+*   Dla aktywnego inwestora, wynik +21% przy kontrolowanym ryzyku (-10% DD) jest nadal atrakcyjną alternatywą, oferującą dywersyfikację względem strategii pasywnych.
+
+---
+
 ## Dlaczego warto? (Wnioski)
 
 Zastosowanie modeli fundacyjnych w inwestowaniu oferuje kilka kluczowych przewag:
