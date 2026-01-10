@@ -52,7 +52,4 @@ Projekt prezentuje praktyczne zastosowanie umiejętności nabytych podczas zaję
 * **Wniosek główny:** AI w inwestowaniu pełni rolę "bezpiecznika" – pozwala na stabilny wzrost przy ograniczonym ryzyku spadku wartości portfela.
 * **Dalszy rozwój:** Wzbogacenie modelu o analizę sentymentu (newsy rynkowe) oraz testowanie modelu na innych klasach aktywów (kryptowaluty, surowce).
 
----
-**Wkład członków zespołu:**
-* **Student 1:** Pozyskanie rzeczywistych danych, implementacja modelu Kronos i analiza techniczna.
-* **Student 2:** Zastosowanie Prompt Engineeringu, przygotowanie raportu z użyciem narzędzi GenAI i wizualizacja wyników.
+
