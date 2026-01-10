@@ -1,58 +1,58 @@
 # Raport Projektowy: Wykorzystanie Modelu Kronos w Prognozowaniu ETF
-[cite_start]**Temat:** Finanse i inwestowanie – analiza szeregów czasowych funduszu QQQ[cite: 4, 7].
-[cite_start]**Autorzy:** Zespół dwuosobowy[cite: 9].
+**Temat:** Finanse i inwestowanie – analiza szeregów czasowych funduszu QQQ.
+**Obszar projektu:** Analiza danych biznesowych i rynki kapitałowe.
 
 ---
 
 ## CZĘŚĆ I: Poradnik Inwestora – Jak AI wspiera decyzje?
-[cite_start]*Celem tej części jest przystępne przedstawienie wybranego problemu dla odbiorcy nietechnicznego[cite: 24, 32]. [cite_start]Sekcja opracowana z wykorzystaniem narzędzi generatywnej SI oraz technik Prompt Engineeringu[cite: 14, 15, 26].*
+*Celem tej części jest przystępne przedstawienie wybranego problemu dla odbiorcy nietechnicznego (zgodnie z wymogami projektu). Sekcja opracowana z wykorzystaniem narzędzi generatywnej SI oraz świadomego Prompt Engineeringu.*
 
 ### 1. Czym są Modele Fundacyjne (np. Kronos)?
-W przeciwieństwie do tradycyjnych algorytmów, modele fundacyjne dla szeregów czasowych uczą się uniwersalnych wzorców rynkowych na ogromnych zbiorach danych[cite: 17].
+W przeciwieństwie do tradycyjnych algorytmów, modele fundacyjne dla szeregów czasowych uczą się uniwersalnych wzorców rynkowych na ogromnych zbiorach danych. Działają one na zasadzie przewidywania kolejnych wartości w sekwencji, podobnie jak modele językowe przewidują słowa.
 
 **Przykład zastosowania Prompt Engineeringu (Prompt 1):**
 > **Zapytanie:** *"Wyjaśnij pojęcie Time-Series Foundation Models dla odbiorcy nietechnicznego, używając analogii do ChatGPT"*.
 > 
 > **Odpowiedź AI:** *"ChatGPT przewiduje kolejne słowa w zdaniu, bo rozumie strukturę języka. Kronos działa identycznie, ale zamiast słów 'czyta' wykresy giełdowe. Rozpoznaje uniwersalne rytmy rynku, których ludzkie oko nie jest w stanie wyłapać"*.
 
-### 2. Korzyści dla inwestora nietechnicznego [cite: 33]
-* [cite_start]**Obiektywizm:** AI eliminuje emocje, takie jak strach czy chciwość, zapewniając spójną strategię[cite: 20].
-* [cite_start]**Adaptacyjność:** Model potrafi analizować nowe sytuacje rynkowe, bazując na analogiach z milionów historycznych wzorców[cite: 18].
-* [cite_start]**Klarowność:** Złożone dane są przekształcane w proste sygnały inwestycyjne[cite: 32].
+### 2. Korzyści dla inwestora
+* **Obiektywizm:** AI eliminuje emocje, takie jak strach czy chciwość, zapewniając spójną strategię.
+* **Adaptacyjność:** Model potrafi analizować nowe sytuacje rynkowe, bazując na analogiach z milionów historycznych wzorców.
+* **Klarowność:** Złożone dane są przekształcane w proste sygnały inwestycyjne: KUP (1) lub CZEKAJ (0).
 
 ---
 
 ## CZĘŚĆ II: Analiza przypadku – Fundusz QQQ (2024-2025)
-[cite_start]*Praktyczne rozwiązanie problemu z użyciem metod uczenia maszynowego na rzeczywistych danych[cite: 35, 38].*
+*Praktyczne rozwiązanie problemu z użyciem metod uczenia maszynowego (szeregi czasowe) na rzeczywistych danych.*
 
-### [cite_start]1. Metodologia [cite: 51]
-* [cite_start]**Dane:** Historyczne notowania OHLCV funduszu Invesco QQQ Trust (NASDAQ-100) pobrane z Yahoo Finance[cite: 16, 20].
-* [cite_start]**Model:** Zaawansowane modele szeregów czasowych (Time-Series Foundation Model – Kronos)[cite: 42].
-* [cite_start]**Zadanie:** Regresja i prognoza ceny z horyzontem 21 dni w celu generowania sygnałów transakcyjnych[cite: 41, 43].
+### 1. Metodologia i Narzędzia
+* **Dane:** Rzeczywiste notowania historyczne OHLCV funduszu Invesco QQQ Trust (NASDAQ-100) pobrane z Yahoo Finance.
+* **Metoda ML:** Model szeregów czasowych (Time-Series Foundation Model – Kronos).
+* **Zadanie:** Analiza trendu i prognoza ceny z horyzontem 21 dni w celu generowania sygnałów transakcyjnych.
 
-### [cite_start]2. Wyniki i Interpretacja (Backtesting) [cite: 44, 52]
-Poniższa tabela przedstawia porównanie strategii opartej na AI ze strategią pasywną (rzeczywiste wyniki modelu):
+### 2. Wyniki i Interpretacja (Backtesting)
+Poniższa tabela przedstawia porównanie naszej aktywnej strategii AI ze strategią pasywną (Kup i Trzymaj):
 
 | Metryka | Strategia Aktywna (AI) | Strategia Pasywna (Buy & Hold) |
 | :--- | :--- | :--- |
 | **Całkowity Zwrot** | **+21.17%** | **+39.38%** |
-| **Max Drawdown (Ryzyko)** | **-10.24%** | (Znacznie wyższe ryzyko rynkowe) |
+| **Maks. Obsunięcie (Max Drawdown)** | **-10.24%** | (Wysoka zmienność rynkowa) |
 | **Ekspozycja na rynek** | **70.93%** | 100% |
 
-**Interpretacja wygenerowana przez AI (Prompt 2):**
+**Interpretacja wyników (Prompt 2):**
 > **Zapytanie:** *"Na podstawie wyników backtestingu QQQ (+21% zysku, -10% drawdown), sformułuj wnioski dotyczące bezpieczeństwa kapitału"*.
 > 
-> **Wnioski AI:** *"Maksymalne obsunięcie na poziomie -10.24% przy zysku +21% świadczy o wysokiej stabilności. System potrafi wycofać się z rynku w momentach ryzyka, co chroni inwestora przed głębokimi stratami. Oferuje lepszy profil bezpieczeństwa (risk-adjusted return) niż strategia pasywna"*.
+> **Wnioski AI:** *"Maksymalne obsunięcie na poziomie -10.24% świadczy o wysokiej stabilności. System potrafi wycofać się z rynku w momentach ryzyka, co chroni inwestora przed głębokimi stratami. Oferuje lepszy profil bezpieczeństwa (risk-adjusted return) niż strategia pasywna w okresach niepewności"*.
 
 ---
 
-## [cite_start]PODSUMOWANIE I WNIOSKI [cite: 53]
-[cite_start]Projekt prezentuje umiejętność połączenia analizy danych z nowoczesnymi narzędziami AI[cite: 13, 60].
+## PODSUMOWANIE I WNIOSKI
+Projekt prezentuje praktyczne zastosowanie umiejętności nabytych podczas zajęć: wykorzystanie generatywnej AI, prompt engineeringu oraz analizy szeregów czasowych.
 
-* [cite_start]**Wniosek główny:** AI w inwestowaniu pełni rolę "bezpiecznika" – pozwala na stabilny wzrost przy ograniczonym ryzyku (niski Drawdown)[cite: 45].
-* [cite_start]**Dalszy rozwój:** Wzbogacenie modelu o analizę sentymentu (newsy rynkowe) oraz optymalizację progów decyzyjnych dla różnych klas aktywów[cite: 53].
+* **Wniosek główny:** AI w inwestowaniu pełni rolę "bezpiecznika" – pozwala na stabilny wzrost przy ograniczonym ryzyku spadku wartości portfela.
+* **Dalszy rozwój:** Wzbogacenie modelu o analizę sentymentu (newsy rynkowe) oraz testowanie modelu na innych klasach aktywów (kryptowaluty, surowce).
 
 ---
-[cite_start]**Podział prac w zespole[cite: 10]:**
-* [cite_start]**Członek 1:** Pozyskanie danych, implementacja modelu Kronos i przeprowadzenie backtestingu[cite: 38, 39].
-* [cite_start]**Członek 2:** Przygotowanie raportu z użyciem Generatywnej AI, prompt engineering oraz wizualizacja wyników[cite: 14, 15, 19].
+**Wkład członków zespołu:**
+* **Student 1:** Pozyskanie rzeczywistych danych, implementacja modelu Kronos i analiza techniczna.
+* **Student 2:** Zastosowanie Prompt Engineeringu, przygotowanie raportu z użyciem narzędzi GenAI i wizualizacja wyników.
