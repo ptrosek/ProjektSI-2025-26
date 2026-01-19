@@ -106,7 +106,7 @@ def run_backtest(ticker, start_date, rebalance, initial_cash, device, pred_len, 
 
         rmse = np.sqrt(((valid_comparison['Actual_Return'] - valid_comparison['Pred_Return']) ** 2).mean())
         mae = (valid_comparison['Actual_Return'] - valid_comparison['Pred_Return']).abs().mean()
-        
+
         # Directional Accuracy
         actual_dir = np.sign(valid_comparison['Actual_Return'])
         pred_dir = np.sign(valid_comparison['Pred_Return'])
@@ -199,7 +199,7 @@ def run_backtest(ticker, start_date, rebalance, initial_cash, device, pred_len, 
         
         with open(output_file, 'r', encoding='utf-8') as f:
             html_content = f.read()
-            
+
         # Inject content before closing body tag
         if '</body>' in html_content:
             # Inject suggestion at the top (after <body>)
